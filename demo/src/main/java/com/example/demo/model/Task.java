@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,40 +13,29 @@ public class Task {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id") // This creates a foreign key column in the task table for the user relationship
-    private Users users;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Users user;
 
     @ManyToOne
+    @JoinColumn(name = "project_id", referencedColumnName = "id")
     private Project project;
 
+    public Task() {}
 
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
-    public Task() {} // Default constructor (needed for JPA)
-
-    // Constructor for tasks without a user
     public Task(String name, String description, String status) {
         this.name = name;
         this.description = description;
         this.status = status;
     }
 
-    // Constructor for tasks with a user
-    public Task(String name, String description, String status, Users users) {
+    public Task(String name, String description, String status, Users user) {
         this.name = name;
         this.description = description;
         this.status = status;
-        this.users = users; // Set the user
+        this.user = user;
     }
 
-    // Getters and Setters
     public Long getId() { return id; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -53,6 +43,8 @@ public class Task {
     public void setDescription(String description) { this.description = description; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
-    public Users getUser() { return users; }
-    public void setUser(Users users) { this.users = users; }
+    public Users getUser() { return user; }
+    public void setUser(Users user) { this.user = user; }
+    public Project getProject() { return project; }
+    public void setProject(Project project) { this.project = project; }
 }

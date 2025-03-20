@@ -18,9 +18,9 @@ public class Users {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id")
     )
-    private Set<Project> projects = new HashSet<>(); // Renamed to match mappedBy in Project.java
+    private Set<Project> projects = new HashSet<>();
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Task> tasks = new HashSet<>();
 
     public Users() {}
@@ -34,6 +34,6 @@ public class Users {
     public void setName(String name) { this.name = name; }
     public Set<Task> getTasks() { return tasks; }
     public void setTasks(Set<Task> tasks) { this.tasks = tasks; }
-    public Set<Project> getProjects() { return projects; }  // Add getter
-    public void setProjects(Set<Project> projects) { this.projects = projects; }  // Add setter
+    public Set<Project> getProjects() { return projects; }
+    public void setProjects(Set<Project> projects) { this.projects = projects; }
 }

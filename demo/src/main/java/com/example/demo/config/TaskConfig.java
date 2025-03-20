@@ -20,9 +20,9 @@ public class TaskConfig {
             userRepository.save(users);
 
             // Creating sample tasks and associating them with the user
-            Task task1 = new Task("Clean Room", "Tidy up the bedroom", "TODO", users);
-            Task task2 = new Task("Write Report", "Finish the weekly report", "IN_PROGRESS", users);
-            Task task3 = new Task("Exercise", "Go for a 30-minute run", "DONE", users);
+            Task task1 = new Task("Clean Room", "Tidy up the bedroom", "TODO");
+            Task task2 = new Task("Write Report", "Finish the weekly report", "IN_PROGRESS");
+            Task task3 = new Task("Exercise", "Go for a 30-minute run", "DONE");
 
             // Save tasks to the database
             taskRepository.saveAll(List.of(task1, task2, task3));

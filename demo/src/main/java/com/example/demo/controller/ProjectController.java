@@ -41,6 +41,7 @@ public class ProjectController {
         return repository.save(project);
     }
 
+
     // Delete a project
     @DeleteMapping("/{id}")
     public void deleteProject(@PathVariable Long id) {

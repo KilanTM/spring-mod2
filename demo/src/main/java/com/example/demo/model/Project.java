@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.util.HashSet;
@@ -12,13 +13,13 @@ public class Project {
     private Long id;
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "task_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonProperty
     private Set<Task> tasks = new HashSet<>();
 
     @ManyToMany(mappedBy = "projects")
-    private Set<Users> users = new HashSet<>(); // Renamed to match Users.java
+    @JsonIgnore
+    private Set<Users> users = new HashSet<>();
 
     public Project() {}
 
@@ -32,6 +33,6 @@ public class Project {
     public Set<Task> getTasks() { return tasks; }
     public void setTasks(Set<Task> tasks) { this.tasks = tasks; }
 
-    public Set<Users> getUsers() { return users; }  // Add getter
-    public void setUsers(Set<Users> users) { this.users = users; }  // Add setter
+    public Set<Users> getUsers() { return users; }
+    public void setUsers(Set<Users> users) { this.users = users; }
 }
